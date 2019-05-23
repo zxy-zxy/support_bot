@@ -1,0 +1,16 @@
+version: '3.6'
+
+services:
+  support-bot:
+    build: .
+    env_file:
+      - .env
+    command:
+      python manage.py run
+
+  support-bot-init:
+    build: .
+    env_file:
+      - .env
+    command:
+      python manage.py init
