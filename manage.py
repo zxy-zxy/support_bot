@@ -104,10 +104,10 @@ def main():
         elif args.platform == 'vk':
             run_vk_bot()
         else:
-            sys.stdout.write('Unknown command. Please refer to the help.')
+            sys.stdout.write('Unknown command. Please refer for help.')
             sys.exit(1)
     else:
-        sys.stdout.write('Unknown command. Please refer to the help.')
+        sys.stdout.write('Unknown command. Please refer for help.')
         sys.exit(1)
 
 

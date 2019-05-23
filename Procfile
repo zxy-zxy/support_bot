@@ -1,1 +1,1 @@
-bot: python3 manage.py
+bot: python3 manage.py run platform=telegram
