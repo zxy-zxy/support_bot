@@ -45,7 +45,7 @@ def _get_console_handler():
 def _get_telegram_handler():
     telegram_handler = TelegramHandler(
         Config.TELEGRAM_LOGGER_BOT_TOKEN,
-        Config.TELEGRAM_CHAT_ID
+        Config.TELEGRAM_LOGGER_CHAT_ID
     )
     telegram_handler.setFormatter(FORMATTER)
     return telegram_handler

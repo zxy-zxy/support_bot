@@ -30,7 +30,7 @@ def create_parser():
         'run',
     )
     run_parser.add_argument(
-        'platform',
+        '--platform',
         type=str,
         help='Run bot on telegram or vk platform.'
     )

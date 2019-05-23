@@ -1,12 +1,19 @@
 version: '3.6'
 
 services:
-  support-bot:
+  support-bot-telegram:
     build: .
     env_file:
       - .env
     command:
-      python manage.py run
+      python manage.py run --platform=telegram
+
+  support-bot-vk:
+    build: .
+    env_file:
+      - .env
+    command:
+      python manage.py run --platform=vk
 
   support-bot-init:
     build: .
