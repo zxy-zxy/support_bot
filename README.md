@@ -1,3 +1,12 @@
+# Python support-bot equipped with dialogflow.
+
+This application is designed to make life of your support team easier. 
+Main idea is that bot keeps the conversation going, because it's backend operated with [dialogflow](https://dialogflow.com/).
+
+* [Vk](https://vk.com)
+* [Telegram](https://telegram.org/)
+
+![](data/Example.gif)
 
 ### Usage
 
@@ -16,7 +25,8 @@ page.
 
 #### Logger configuration
 Application using telegram bot for logging as well.
-* Obtain a token for your logging bot from [botfather](https://core.telegram.org/bots).
+* Obtain a token for your logging bot from [botfather](https://core.telegram.org/bots). This is required for 
+TELEGRAM_LOGGER_BOT_TOKEN environment variable.
 * Provide TELEGRAM_LOGGER_CHAT_ID at your .env file. This is the chat id where bot is going to send you it's messages.
 
 #### Before you go
