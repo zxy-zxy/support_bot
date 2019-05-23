@@ -6,7 +6,7 @@ Main idea is that bot keeps the conversation going, because it's backend operate
 * [Vk](https://vk.com)
 * [Telegram](https://telegram.org/)
 
-![](data/Example.gif)
+![](data/screen.gif)
 
 ### Usage
 
