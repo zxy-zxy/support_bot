@@ -53,7 +53,9 @@ class VkBot:
 
         except (GoogleAuthError, GoogleAPIError) as e:
             _vk_api.messages.send(
-                'Please, try again later.'
+                user_id=event.user_id,
+                message='Please, try again later.',
+                random_id=random.randint(1, 1000)
             )
             wrapped_logger.logger.error(
                 f'An error {str(e)} has occurred during response to {event.user_id}'
