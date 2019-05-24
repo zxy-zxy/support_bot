@@ -16,7 +16,10 @@ def load_credentials_from_config():
 def create_intent(
         project_id, display_name, language_code, training_phrases_parts, messages_texts
 ):
-    intents_client = dialogflow.IntentsClient()
+
+    credentials = load_credentials_from_config()
+
+    intents_client = dialogflow.IntentsClient(credentials=credentials)
     parent = intents_client.project_agent_path(project_id)
 
     training_phrases = []
@@ -42,6 +45,7 @@ def create_intent(
 
 def detect_intent(project_id, language_code, session_id, text):
     credentials = load_credentials_from_config()
+
     session_client = dialogflow.SessionsClient(credentials=credentials)
     session = session_client.session_path(project_id, session_id)
 

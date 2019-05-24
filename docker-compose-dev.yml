@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     command:
-      /bot_application/entrypoint.sh
+      /bot_application/entrypoint.sh telegram
     volumes:
       - ./data:/bot_application/data
 
@@ -17,6 +17,16 @@ services:
     env_file:
       - .env
     command:
-      /bot_application/entrypoint-telegram.sh
+       /bot_application/entrypoint.sh vk
+    volumes:
+      - ./data:/bot_application/data
+
+  init-intents:
+    build:
+      context: .
+    env_file:
+      - .env
+    command:
+       /bot_application/entrypoint.sh init
     volumes:
       - ./data:/bot_application/data
