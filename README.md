@@ -6,7 +6,7 @@ Main idea is that bot keeps the conversation going, because it's backend operate
 * [Vk](https://vk.com)
 * [Telegram](https://telegram.org/)
 
-![](data/screen.gif)
+![](data/bot_example.gif)
 
 ### Usage
 
@@ -29,8 +29,10 @@ Application using telegram bot for logging as well.
 TELEGRAM_LOGGER_BOT_TOKEN environment variable.
 * Provide TELEGRAM_LOGGER_CHAT_ID at your .env file. This is the chat id where bot is going to send you it's messages.
 
-#### Before you go
+#### Google services configuration
 * Then, configure your environments variables. Example.env file is provided.
+* Put your google service account credentials into application folder as data/google_credentials.json
+or provide filepath at entrypoint.sh
 * Before run your bot please initialize intents at dialogflow.
 
 To initialize [dialogflow](https://dialogflow.com/) intents please run:
@@ -56,11 +58,17 @@ docker-compose -f docker-compose-dev.yml run support-bot-vk
 Each type of bot has it's own branch. 
 While deploying application on Heroku with GitHub deployment method select the branch you are interested in.
 
-Then, login with [Heroku cli](https://devcenter.heroku.com/articles/heroku-cli):
+Login with [Heroku cli](https://devcenter.heroku.com/articles/heroku-cli):
 ```bash
 heroku login
 ```
-Setup:
+
+Setup google service account credentials with:
+```bash
+heroku config:set GOOGLE_APPLICATION_CREDENTIALS="$(< credentials.json)"
+```
+
+Run application and track logs:
 ```bash
 heroku ps:scale bot=1 --app <your_application_name_here>
 heroku logs --tail --app <your_application_name_here>

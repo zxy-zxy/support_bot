@@ -1,4 +1,16 @@
+import json
+
 import dialogflow_v2 as dialogflow
+from google.oauth2 import service_account
+
+from application.utils.config import Config
+
+
+def load_credentials_from_config():
+    service_account_info = json.loads(Config.GOOGLE_APPLICATION_CREDENTIALS)
+    credentials = service_account.Credentials.from_service_account_info(
+        service_account_info)
+    return credentials
 
 
 def create_intent(
@@ -29,8 +41,8 @@ def create_intent(
 
 
 def detect_intent(project_id, language_code, session_id, text):
-
-    session_client = dialogflow.SessionsClient()
+    credentials = load_credentials_from_config()
+    session_client = dialogflow.SessionsClient(credentials=credentials)
     session = session_client.session_path(project_id, session_id)
 
     text_input = dialogflow.types.TextInput(text=text, language_code=language_code)
