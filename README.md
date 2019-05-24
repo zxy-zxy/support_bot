@@ -1,7 +1,9 @@
 # Python support-bot equipped with dialogflow.
 
-This application is designed to make life of your support team easier. 
-Main idea is that bot keeps the conversation going, because it's backend operated with [dialogflow](https://dialogflow.com/).
+This is a chatbot application which is designed to make life of your support team easier. 
+Main idea is that bot keeps the conversation going, since it's backend operated with [dialogflow](https://dialogflow.com/).
+
+Currently 2 platforms are supported:
 
 * [Vk](https://vk.com)
 * [Telegram](https://telegram.org/)
@@ -24,50 +26,48 @@ page.
 * Obtain a group token.
 
 #### Logger configuration
-Application using telegram bot for logging as well.
+Application uses telegram bot for logging as well.
 * Obtain a token for your logging bot from [botfather](https://core.telegram.org/bots). This is required for 
 TELEGRAM_LOGGER_BOT_TOKEN environment variable.
-* Provide TELEGRAM_LOGGER_CHAT_ID at your .env file. This is the chat id where bot is going to send you it's messages.
+* Fill TELEGRAM_LOGGER_CHAT_ID env. variable with chat id which is intended for receiving log messages.
 
 #### Google services configuration
-* Then, configure your environments variables. Example.env file is provided.
-* Put your google service account credentials into application folder as data/google_credentials.json
-or provide filepath at entrypoint.sh
-* Before run your bot please initialize intents at dialogflow.
+* Put your google service account credentials into application folder at data/google_credentials.json
+or provide full filepath at entrypoint.sh.
+* Before you can run your bot you need to initialize intents at dialogflow.
 
-To initialize [dialogflow](https://dialogflow.com/) intents please run:
-```bash
-python manage.py init
-```
-
-#### To run on your local computer
-Build your services with docker-compose:
+#### Running on local environment
+Build with docker-compose:
 ```bash
 docker-compose -f docker-compose-dev.yml build
 ```
-If you want to run telegram bot, run:
+
+Initialize [dialogflow](https://dialogflow.com/) intents:
+```bash
+docker-compose -f docker-compose-dev.yml run init-intents
+```
+
+To run telegram-bot:
 ```bash
 docker-compose -f docker-compose-dev.yml run support-bot-telegram
 ```
-And for Vk bot:
+To run vk-bot:
 ```bash
 docker-compose -f docker-compose-dev.yml run support-bot-vk
 ```
 
 #### Deploy with Heroku
-Each type of bot has it's own branch. 
-While deploying application on Heroku with GitHub deployment method select the branch you are interested in.
+Each type of bot has it's own branch, which are different only in Procfile configuration.
+While deploying application on Heroku with GitHub deployment method select the branch which you are interested in.
 
 Login with [Heroku cli](https://devcenter.heroku.com/articles/heroku-cli):
 ```bash
 heroku login
 ```
-
 Setup google service account credentials with:
 ```bash
 heroku config:set GOOGLE_APPLICATION_CREDENTIALS="$(< credentials.json)"
 ```
-
 Run application and track logs:
 ```bash
 heroku ps:scale bot=1 --app <your_application_name_here>
