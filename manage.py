@@ -1,17 +1,17 @@
 import json
 import sys
 import argparse
+import logging
 
 from google.auth.exceptions import GoogleAuthError
 from google.api_core.exceptions import GoogleAPIError
 
-from application.utils.config import Config, ConfigurationError, validate_config
-from application.utils.logger_config import WrappedLogger
+from application.settings import Config, ConfigurationError, validate_config
 from application.dialogflow_api import create_intent
 from application.telegram_bot import TelegramDialogBot
 from application.vk_bot import VkBot
 
-wrapped_logger = WrappedLogger(__file__)
+logger = logging.getLogger(__file__)
 
 
 def create_parser():
@@ -46,7 +46,7 @@ def initialize_dialogflow_intents():
         with open(Config.DIALOGFLOW_LEARNING_DATA_FILE_PATH, 'r') as file_read:
             learning_data = json.loads(file_read.read())
     except (FileNotFoundError, FileExistsError, json.JSONDecodeError) as e:
-        wrapped_logger.logger.error(
+        logger.error(
             f'An error has occurred during attempt to read file: {str(e)}'
         )
         return
@@ -61,9 +61,9 @@ def initialize_dialogflow_intents():
                 topic['questions'],
                 topic['answer']
             )
-            wrapped_logger.logger.info(f'Intent has been created: {title}, {response.name}')
+            logger.info(f'Intent has been created: {title}, {response.name}')
         except (GoogleAuthError, GoogleAPIError) as e:
-            wrapped_logger.logger.error(
+            logger.error(
                 f'An error has occurred during creating of intent: {title}: {str(e)}'
             )
 
@@ -72,7 +72,7 @@ def run_telegram_bot():
     """
     Run telegram bot.
     """
-    wrapped_logger.logger.info('Attempt to start telegram bot.')
+    logger.info('Attempt to start telegram bot.')
     telegram_bot = TelegramDialogBot(token=Config.TELEGRAM_BOT_TOKEN)
     telegram_bot.start()
 
@@ -81,7 +81,7 @@ def run_vk_bot():
     """
     Run vk bot
     """
-    wrapped_logger.logger.info('Attempt to start vk bot.')
+    logger.info('Attempt to start vk bot.')
     vk_bot = VkBot()
     vk_bot.start()
 

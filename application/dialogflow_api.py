@@ -3,7 +3,7 @@ import json
 import dialogflow_v2 as dialogflow
 from google.oauth2 import service_account
 
-from application.utils.config import Config
+from application.settings import Config
 
 
 def load_credentials_from_config():
@@ -16,7 +16,6 @@ def load_credentials_from_config():
 def create_intent(
         project_id, display_name, language_code, training_phrases_parts, messages_texts
 ):
-
     credentials = load_credentials_from_config()
 
     intents_client = dialogflow.IntentsClient(credentials=credentials)

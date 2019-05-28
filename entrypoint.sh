@@ -1,7 +1,8 @@
 #!/bin/sh
 
 echo "Start application."
-export GOOGLE_APPLICATION_CREDENTIALS="$(cat data/google_credentials.json)"
+export GOOGLE_APPLICATION_CREDENTIALS="$(cat /data/google_credentials.json)"
+
 
 if [ "$1" = "telegram" ]; then
     python manage.py run --platform=telegram

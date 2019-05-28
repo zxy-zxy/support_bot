@@ -1,13 +1,14 @@
+import logging
+
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 from google.auth.exceptions import GoogleAuthError
 from google.api_core.exceptions import GoogleAPIError
 
-from application.utils.logger_config import WrappedLogger
 from application.dialogflow_api import detect_intent
-from application.utils.config import Config
+from application.settings import Config
 
-wrapped_logger = WrappedLogger(__file__)
+logger = logging.getLogger(__file__)
 
 
 class TelegramDialogBot:
@@ -28,7 +29,7 @@ def _start(bot, update):
 
 
 def _error(bot, update, error):
-    wrapped_logger.logger.warning('Update "%s" caused error "%s"', update, error)
+    logger.warning('Update "%s" caused error "%s"', update, error)
 
 
 def _dialog(bot, update):
@@ -48,6 +49,6 @@ def _dialog(bot, update):
         update.message.reply_text(
             'Please, try again later.'
         )
-        wrapped_logger.logger.error(
+        logger.error(
             f'An error {str(e)} has occurred during response to {update.message.chat_id}'
         )

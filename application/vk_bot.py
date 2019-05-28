@@ -1,3 +1,4 @@
+import logging
 import random
 
 from google.auth.exceptions import GoogleAuthError
@@ -6,10 +7,9 @@ import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 
 from application.dialogflow_api import detect_intent
-from application.utils.logger_config import WrappedLogger
-from application.utils.config import Config
+from application.settings import Config
 
-wrapped_logger = WrappedLogger(__file__)
+logger = logging.getLogger(__file__)
 
 
 class VkBot:
@@ -42,7 +42,7 @@ class VkBot:
             if response_intent == VkBot.default_fallback_intent:
                 pass
             else:
-                wrapped_logger.logger.warning(
+                logger.warning(
                     f'Could not detect proper intent, please reply in manual mode.'
                 )
                 _vk_api.messages.send(
@@ -57,6 +57,6 @@ class VkBot:
                 message='Please, try again later.',
                 random_id=random.randint(1, 1000)
             )
-            wrapped_logger.logger.error(
+            logger.error(
                 f'An error {str(e)} has occurred during response to {event.user_id}'
             )

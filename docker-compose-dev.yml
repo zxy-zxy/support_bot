@@ -4,29 +4,35 @@ services:
   support-bot-telegram:
     build:
       context: .
+    working_dir:
+      /bot_application
     env_file:
       - .env
     command:
       /bot_application/entrypoint.sh telegram
     volumes:
-      - ./data:/bot_application/data
+      - ./data:/data
 
   support-bot-vk:
     build:
       context: .
+    working_dir:
+      /bot_application
     env_file:
       - .env
     command:
        /bot_application/entrypoint.sh vk
     volumes:
-      - ./data:/bot_application/data
+      - ./data:/data
 
   init-intents:
     build:
       context: .
+    working_dir:
+      /bot_application
     env_file:
       - .env
     command:
        /bot_application/entrypoint.sh init
     volumes:
-      - ./data:/bot_application/data
+      - ./data:/data
