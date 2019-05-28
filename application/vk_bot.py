@@ -40,11 +40,10 @@ class VkBot:
             response_intent = response_intent.strip().lower()
 
             if response_intent == VkBot.default_fallback_intent:
-                pass
-            else:
                 logger.warning(
-                    f'Could not detect proper intent, please reply in manual mode.'
+                    f'Bot cannot detect intent, please support in manual mode to {event.user_id}'
                 )
+            else:
                 _vk_api.messages.send(
                     user_id=event.user_id,
                     message=response.query_result.fulfillment_text,

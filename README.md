@@ -57,7 +57,6 @@ docker-compose -f docker-compose-dev.yml run support-bot-vk
 ```
 
 #### Deploy with Heroku
-Each type of bot has it's own branch, which are different only in Procfile configuration.
 While deploying application on Heroku with GitHub deployment method select the branch which you are interested in.
 
 Login with [Heroku cli](https://devcenter.heroku.com/articles/heroku-cli):
@@ -70,6 +69,7 @@ heroku config:set GOOGLE_APPLICATION_CREDENTIALS="$(< credentials.json)"
 ```
 Run application and track logs:
 ```bash
-heroku ps:scale bot=1 --app <your_application_name_here>
+heroku ps:scale bot-telegram=1 --app <your_application_name_here>
+heroku ps:scale bot-vk=1 --app <your_application_name_here>
 heroku logs --tail --app <your_application_name_here>
 ```
