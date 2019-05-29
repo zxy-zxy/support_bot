@@ -6,10 +6,10 @@ import logging
 from google.auth.exceptions import GoogleAuthError
 from google.api_core.exceptions import GoogleAPIError
 
-from application.settings import Config, ConfigurationError, validate_config
-from application.dialogflow_api import create_intent
-from application.telegram_bot import TelegramDialogBot
-from application.vk_bot import VkBot
+from settings import Config, ConfigurationError, validate_config, setup_logging
+from dialogflow_api import create_intent
+from telegram_bot import TelegramDialogBot
+from vk_bot import VkBot
 
 logger = logging.getLogger(__file__)
 
@@ -42,6 +42,7 @@ def initialize_dialogflow_intents():
     """
     Initialize intents with provided data.
     """
+
     try:
         with open(Config.DIALOGFLOW_LEARNING_DATA_FILE_PATH, 'r') as file_read:
             learning_data = json.loads(file_read.read())
@@ -81,6 +82,7 @@ def run_vk_bot():
     """
     Run vk bot
     """
+
     logger.info('Attempt to start vk bot.')
     vk_bot = VkBot()
     vk_bot.start()
@@ -92,6 +94,8 @@ def main():
     except ConfigurationError as e:
         sys.stdout.write(str(e))
         sys.exit(1)
+
+    setup_logging()
 
     parser = create_parser()
     args = parser.parse_args()

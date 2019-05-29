@@ -3,7 +3,7 @@ import json
 import dialogflow_v2 as dialogflow
 from google.oauth2 import service_account
 
-from application.settings import Config
+from settings import Config
 
 
 def load_credentials_from_config():

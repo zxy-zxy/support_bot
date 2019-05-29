@@ -7,7 +7,6 @@ RUN pip install -r /bot_application/requirements.txt
 
 COPY ./application/ /bot_application/application/
 COPY ./entrypoint.sh /bot_application/entrypoint.sh
-COPY ./manage.py /bot_application/manage.py
 
 WORKDIR /bot_application/
 

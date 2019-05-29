@@ -4,10 +4,6 @@ import logging.config
 
 import telegram
 
-sys.path.append(
-    os.path.abspath(os.path.dirname(__file__))
-)
-
 
 class ConfigurationError(Exception):
     pass
@@ -55,36 +51,40 @@ class TelegramHandler(logging.Handler):
         )
 
 
-logconfig = {
-    'version': 1,
-    'formatters': {
-        'standard': {
-            'format': '%(asctime)s — %(name)s — %(levelname)s — %(message)s'
-        }
-    },
-    'handlers': {
-        'default': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'standard',
-            'level': 'INFO',
+def setup_logging():
+
+    sys.path.append(
+        os.path.abspath(os.path.dirname(__file__))
+    )
+
+    logconfig = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'standard': {
+                'format': '%(asctime)s — %(name)s — %(levelname)s — %(message)s'
+            }
         },
-        'telegram': {
-            'class': 'settings.TelegramHandler',
-            'level': 'INFO',
-            'telegram_token': os.getenv('TELEGRAM_LOGGER_BOT_TOKEN'),
-            'telegram_chat_id': os.getenv('TELEGRAM_LOGGER_CHAT_ID')
-        }
-    },
-    'loggers': {
-        '': {
-            'handlers': ['default', 'telegram'],
-            'level': 'INFO',
-            'propagate': True
+        'handlers': {
+            'default': {
+                'class': 'logging.StreamHandler',
+                'formatter': 'standard',
+                'level': 'INFO',
+            },
+            'telegram': {
+                'class': 'settings.TelegramHandler',
+                'level': 'INFO',
+                'telegram_token': os.getenv('TELEGRAM_LOGGER_BOT_TOKEN'),
+                'telegram_chat_id': os.getenv('TELEGRAM_LOGGER_CHAT_ID')
+            }
+        },
+        'loggers': {
+            '': {
+                'handlers': ['default', 'telegram'],
+                'level': 'INFO',
+                'propagate': True
+            }
         }
     }
-}
-logging.config.dictConfig(logconfig)
 
-FORMATTER = logging.Formatter(
-    '%(asctime)s — %(name)s — %(levelname)s — %(message)s'
-)
+    logging.config.dictConfig(logconfig)

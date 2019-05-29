@@ -12,6 +12,7 @@ services:
       /bot_application/entrypoint.sh telegram
     volumes:
       - ./data:/data
+      - ./application:/bot_application/application/
 
   support-bot-vk:
     build:
@@ -24,6 +25,7 @@ services:
        /bot_application/entrypoint.sh vk
     volumes:
       - ./data:/data
+      - ./application:/bot_application/application/
 
   init-intents:
     build:
@@ -36,3 +38,4 @@ services:
        /bot_application/entrypoint.sh init
     volumes:
       - ./data:/data
+      - ./application:/bot_application/application/

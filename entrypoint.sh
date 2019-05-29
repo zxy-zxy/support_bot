@@ -3,11 +3,10 @@
 echo "Start application."
 export GOOGLE_APPLICATION_CREDENTIALS="$(cat /data/google_credentials.json)"
 
-
 if [ "$1" = "telegram" ]; then
-    python manage.py run --platform=telegram
+    python application/manage.py run --platform=telegram
 elif [ "$1" = "vk" ]; then
-    python manage.py run --platform=vk
+    python application/manage.py run --platform=vk
 elif [ "$1" = "init" ]; then
-    python manage.py init
+    python application/manage.py init
 fi

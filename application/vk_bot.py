@@ -6,10 +6,8 @@ from google.api_core.exceptions import GoogleAPIError
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 
-from application.dialogflow_api import detect_intent
-from application.settings import Config
-
-logger = logging.getLogger(__file__)
+from dialogflow_api import detect_intent
+from settings import Config
 
 
 class VkBot:
@@ -18,6 +16,7 @@ class VkBot:
     def __init__(self):
         self._vk_session = vk_api.VkApi(token=Config.VK_GROUP_TOKEN)
         self._longpoll = VkLongPoll(self._vk_session)
+        self._logger = logging.getLogger(__file__)
 
     def start(self):
         _vk_api = self._vk_session.get_api()
@@ -40,7 +39,7 @@ class VkBot:
             response_intent = response_intent.strip().lower()
 
             if response_intent == VkBot.default_fallback_intent:
-                logger.warning(
+                self._logger.warning(
                     f'Bot cannot detect intent, please support in manual mode to {event.user_id}'
                 )
             else:
@@ -56,6 +55,6 @@ class VkBot:
                 message='Please, try again later.',
                 random_id=random.randint(1, 1000)
             )
-            logger.error(
+            self._logger.error(
                 f'An error {str(e)} has occurred during response to {event.user_id}'
             )
